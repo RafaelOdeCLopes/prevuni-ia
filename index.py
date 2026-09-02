@@ -54,10 +54,18 @@ def prever_evasao(alunos: List[DadosAluno]):
     resultados = []
     for i, aluno in enumerate(alunos):
         prob = float(probabilidades[i])
+        
+        if prob < 40.0:
+            nivel = "baixo"
+        elif 40.0 <= prob <= 60.0:
+            nivel = "moderado"
+        else:
+            nivel = "alto"
+
         resultados.append({
             "id": aluno.id if aluno.id else str(i),
             "probabilidade_evasao_percent": round(prob, 2),
-            "risco_alto": bool(prob > 50.0)
+            "nivel_risco": nivel
         })
         
     return resultados
